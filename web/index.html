@@ -1,0 +1,43 @@
+<html>
+
+  <head>
+        <title>Hello!</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="container-md">
+
+    <form>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Images</label>
+        <input type="file" class="form-control" id="image" accept=".jpg" >
+      </div>
+       <button type="button" class="btn btn-primary" onclick="queryServer()">Submit</button>
+
+       <div id='response'></div>
+    </form>
+
+  </div>
+
+    <script type="text/javascript">
+    function queryServer() {
+        const Http = new XMLHttpRequest();
+        const file = document.getElementById('image').files[0];
+        const url = "/api/upload_image";
+        var doc = new FormData();
+        Http.open("POST", url);
+        doc.append("image",file);
+        Http.send(doc);
+
+        Http.onreadystatechange = (e) => {
+            document.getElementById('response').innerHTML = Http.responseText;
+        }
+    }
+    </script>
+  
+  </body>
+
+</html>
